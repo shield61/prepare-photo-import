@@ -1,0 +1,76 @@
+name: Create Releases
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Create Releases
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.x
+
+    - name: Build for Windows
+      run: GOOS=windows GOARCH=amd64 go build -o preppi-windows-amd64 .
+      
+    - name: Build for MacOS on Intel
+      run: GOOS=darwin GOARCH=amd64 go build -o preppi-darwin-amd64 .
+      
+    - name: Build for MacOS on Apple Silicon
+      run: GOOS=darwin GOARCH=arm64 go build -o preppi-darwin-arm64 .
+      
+    - name: Build for Linux AMD64
+      run: GOOS=linux GOARCH=amd64 go build -o preppi-linux-amd64 .
+      
+    - name: Build for Raspberry Pi 4
+      run: GOOS=linux GOARCH=arm go build -o preppi-raspberrypi .
+      
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v1.0.0 # Use your desired version tag
+        release_name: Release v1.0.0 # Use your desired release name
+        draft: false
+        prerelease: false
+        
+    - name: Upload Windows Build
+      uses: actions/upload-artifact@v2
+      with:
+        name: preppi-windows-amd64
+        path: ./preppi-windows-amd64
+      
+    - name: Upload MacOS on Intel Build
+      uses: actions/upload-artifact@v2
+      with:
+        name: preppi-darwin-amd64
+        path: ./preppi-darwin-amd64
+      
+    - name: Upload MacOS on Apple Silicon Build
+      uses: actions/upload-artifact@v2
+      with:
+        name: preppi-darwin-arm64
+        path: ./preppi-darwin-arm64
+      
+    - name: Upload Linux AMD64 Build
+      uses: actions/upload-artifact@v2
+      with:
+        name: preppi-linux-amd64
+        path: ./preppi-linux-amd64
+      
+    - name: Upload Raspberry Pi 4 Build
+      uses: actions/upload-artifact@v2
+      with:
+        name: preppi-raspberrypi
+        path: ./preppi-raspberrypi
