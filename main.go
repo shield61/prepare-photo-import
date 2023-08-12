@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/yourusername/yourproject/cmd"
+	"github.com/shield61/prepare-photo-import/cmd"
 )
 
 func main() {
