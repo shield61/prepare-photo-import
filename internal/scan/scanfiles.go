@@ -6,9 +6,7 @@ import (
 	"path/filepath"
 )
 
-
-
-func ScanSummarycanFiles(path string, summary *ScanSummary, extensions []string) {
+func ScanFiles(path string, summary *ScanSummary, extensions []string) {
 	totalSize := int64(0)
 	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
