@@ -2,10 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
-
 	"github.com/spf13/cobra"
+	"github.com/shield61/prepare-photo-import/internal/scan"
 )
 
 var dirsCmd = &cobra.Command{
@@ -15,27 +13,11 @@ var dirsCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		path := args[0]
 		fmt.Println("Scanning directories in:", path)
-		scanDirectories(path, &scanSummary)
+		ScanDirectories(path, &scanSummary)
 		fmt.Printf("\nSummary: Scanned %d directories.\n", scanSummary.Directories)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(dirsCmd)
-}
-
-func scanDirectories(path string, summary *ScanSummary) {
-	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		if info.IsDir() {
-			summary.Directories++
-		}
-		return nil
-	})
-
-	if err != nil {
-		fmt.Printf("Error scanning directory: %s\n", err)
-	}
 }
