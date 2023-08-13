@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/shield61/prepare-photo-import/scan"
+	"github.com/shield61/prepare-photo-import/internal/scan"
 )
 
 var rootCmd = &cobra.Command{Use: "preppi"}
