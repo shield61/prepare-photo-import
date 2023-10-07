@@ -1,9 +1,9 @@
 package util
 import (
-	"github.com/shield61/prepare-photo-import/internal/scan"
+	scan "github.com/shield61/prepare-photo-import/internal/scan"
 )
 
-type ByCountAndExtension []ExtensionCount
+type ByCountAndExtension []scan.ExtensionCount
 
 func (a ByCountAndExtension) Len() int      { return len(a) }
 func (a ByCountAndExtension) Swap(i, j int) { a[i], a[j] = a[j], a[i] }

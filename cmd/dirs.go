@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"github.com/shield61/prepare-photo-import/internal/scan"
+	scan "github.com/shield61/prepare-photo-import/internal/scan"
 )
 
 var dirsCmd = &cobra.Command{
@@ -13,7 +13,7 @@ var dirsCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		path := args[0]
 		fmt.Println("Scanning directories in:", path)
-		ScanDirectories(path, &scanSummary)
+		scan.ScanDirectories(path, &scanSummary)
 		fmt.Printf("\nSummary: Scanned %d directories.\n", scanSummary.Directories)
 	},
 }

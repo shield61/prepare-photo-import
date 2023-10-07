@@ -2,11 +2,11 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/shield61/prepare-photo-import/internal/scan"
+	scan "github.com/shield61/prepare-photo-import/internal/scan"
 )
 
 var rootCmd = &cobra.Command{Use: "preppi"}
-var scanSummary ScanSummary
+var scanSummary scan.ScanSummary
 
 func Execute() {
 	scanSummary.FileCountMap = make(map[string]int)
